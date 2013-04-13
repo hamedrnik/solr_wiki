@@ -1,4 +1,6 @@
 SolrWiki::Application.routes.draw do
+  root to: "static_pages#home"
+
   get "types/index"
 
   resources :pages
