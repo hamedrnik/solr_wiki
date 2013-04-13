@@ -1,3 +1,45 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
+jQuery ->
+  $("#page_type_names").select2({
+    multiple: true
+    minimumInputLength: 1
+    tokenSeparators: [",", "،"]
+    dropdownCssClass: "bigdrop"
+    ajax:
+      url: "/types.json"
+      dataType: 'json'
+      data: (term, page)->
+          type_search: term
+          page: 1
+
+      results: (types, page)->
+        results: types
+
+    id: (types)->
+      types.name
+
+    formatResult: (types) ->
+      types.name
+
+    formatSelection: (types) ->
+      types.name
+
+    initSelection: (element, callback)->
+      elementText = $(element).data('types')
+      callback(elementText)
+
+    # creates tags if not exist
+    createSearchChoice: (term, data) ->
+      {id: term, name: term}
+
+    # Translations
+    formatNoMatches: (term)->
+      'Not Found'
+    formatSearching: ->
+      'Searching...'
+    formatInputTooShort: (term, minLength)->
+      minLength + " more character"
+    })

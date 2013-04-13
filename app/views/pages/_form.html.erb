@@ -23,6 +23,10 @@
     <%= f.label :popularity %><br />
     <%= f.number_field :popularity %>
   </div>
+  <div class="field">
+    <%= f.label :type_names %><br />
+    <%= f.text_field :type_names, data: {types: @page.types} %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

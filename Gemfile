@@ -22,6 +22,14 @@ end
 
 gem 'jquery-rails'
 
+gem "select2-rails"
+
+gem 'sunspot_rails'
+# This is an optional packaged Solr:
+group :test, :development do
+  gem 'sunspot_solr'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
