@@ -2,10 +2,20 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.search do
-      fulltext params[:term_search]
+    search = Page.search do
+      fulltext params[:term_search] do
+        highlight :title
+      end
       order_by :popularity, :desc
-    end.results
+    end
+
+    @pages = []
+    search.each_hit_with_result do |hit, result|
+      hit.highlights(:title).each do |highlight|
+        result.title = highlight.format{ |word| "<b>#{word}</b>"}
+      end
+      @pages << result
+    end
 
     respond_to do |format|
       format.html # index.html.erb

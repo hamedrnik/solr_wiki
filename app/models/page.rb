@@ -23,7 +23,7 @@ class Page < ActiveRecord::Base
   validates_presence_of :title, :uri, :popularity
 
   searchable do
-    text :title, as: "title_textp"
+    text :title, as: "title_textp", stored: true
     integer :popularity
   end
 end
