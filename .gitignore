@@ -16,3 +16,4 @@
 /solr/data
 /solr/pids
 config/database.yml
+config/sunspot.yml

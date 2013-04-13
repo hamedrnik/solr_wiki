@@ -1,0 +1,22 @@
+production:
+  solr:
+    hostname: localhost
+    port: 8983
+    data_path: /solr/data
+    pid_path: /solr/pids
+    solr_home: /solr
+    log_level: WARNING
+    # read_timeout: 2
+    # open_timeout: 0.5
+
+development:
+  solr:
+    hostname: localhost
+    port: 8982
+    log_level: INFO
+
+test:
+  solr:
+    hostname: localhost
+    port: 8981
+    log_level: WARNING
