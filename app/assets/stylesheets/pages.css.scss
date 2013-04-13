@@ -2,6 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-ul.select2-choices {
-  width: 325px;
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.field, #error_explanation {
+  text-align: center;
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.field_with_errors {
+  margin-right: auto;
+  margin-left: auto;
 }

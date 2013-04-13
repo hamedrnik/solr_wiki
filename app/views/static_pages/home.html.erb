@@ -1,2 +1,3 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<%= form_tag pages_path, remote: true, method: :get, class: 'form-search' do %>
+  <%= text_field_tag :term_search, params[:term_search], class: "center", placeholder: "Enter a Topic", size: "70" %>
+<% end %>

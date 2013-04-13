@@ -4,9 +4,9 @@
 
 jQuery ->
   $("#page_type_names").select2({
+    width: "element"
     multiple: true
     minimumInputLength: 1
-    tokenSeparators: [",", "،"]
     dropdownCssClass: "bigdrop"
     ajax:
       url: "/types.json"
@@ -31,15 +31,6 @@ jQuery ->
       elementText = $(element).data('types')
       callback(elementText)
 
-    # creates tags if not exist
     createSearchChoice: (term, data) ->
       {id: term, name: term}
-
-    # Translations
-    formatNoMatches: (term)->
-      'Not Found'
-    formatSearching: ->
-      'Searching...'
-    formatInputTooShort: (term, minLength)->
-      minLength + " more character"
     })

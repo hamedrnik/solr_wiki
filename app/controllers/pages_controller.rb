@@ -2,7 +2,10 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
+    @pages = Page.search do
+      fulltext params[:term_search]
+      order_by :popularity, :desc
+    end.results
 
     respond_to do |format|
       format.html # index.html.erb

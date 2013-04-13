@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :type_names %><br />
-    <%= f.text_field :type_names, data: {types: @page.types} %>
+    <%= f.text_field :type_names, data: {types: @page.types}, value: ' ' %>
   </div>
   <div class="actions">
     <%= f.submit %>

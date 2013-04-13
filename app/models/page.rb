@@ -21,4 +21,9 @@ class Page < ActiveRecord::Base
 
   validates_uniqueness_of :title, :uri
   validates_presence_of :title, :uri, :popularity
+
+  searchable do
+    text :title, as: "title_textp"
+    integer :popularity
+  end
 end
