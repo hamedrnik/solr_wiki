@@ -30,6 +30,18 @@ group :test, :development do
   gem 'sunspot_solr'
 end
 
+# Deploy with Capistrano
+gem 'capistrano'
+
+# for maintenance page in capistrano
+gem "capistrano-maintenance"
+
+group :production do
+  gem 'execjs'
+  gem 'therubyracer'
+  gem 'mysql2'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
