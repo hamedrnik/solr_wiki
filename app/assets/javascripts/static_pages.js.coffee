@@ -18,6 +18,9 @@ jQuery ->
     formatResult: (terms) ->
       terms.title
 
+    escapeMarkup: (text) ->
+      text
+
     formatSelection: (terms) ->
       terms.title
   })
