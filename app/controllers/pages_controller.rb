@@ -6,6 +6,7 @@ class PagesController < ApplicationController
       fulltext params[:term_search] do
         highlight :title
       end
+      with :type_ids, params[:type_id]
       order_by :popularity, :desc
     end
 

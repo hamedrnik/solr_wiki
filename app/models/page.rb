@@ -25,5 +25,6 @@ class Page < ActiveRecord::Base
   searchable do
     text :title, as: "title_textp", stored: true
     integer :popularity
+    integer :type_ids, multiple: true
   end
 end

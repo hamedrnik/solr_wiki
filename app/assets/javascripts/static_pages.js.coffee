@@ -10,6 +10,7 @@ jQuery ->
       dataType: 'json'
       data: (term, page)->
           term_search: term
+          type_id: $("#selected_type").val()
           page: 1
 
       results: (terms, page)->
@@ -28,3 +29,11 @@ jQuery ->
   $("#term_search").on("change", (e)->
     $('.form-search').submit()
     )
+
+  $("#type_name").change( ->
+    $("#selected_type").val($("#type_name").val())
+  ).trigger('change')
+
+  $("#type_name").select2({
+    width: "element"
+  })
