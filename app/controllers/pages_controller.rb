@@ -28,6 +28,15 @@ class PagesController < ApplicationController
     end
   end
 
+  def search
+    @page = Page.find(params[:term_search])
+    @desc = Dbpedia.search(@page.title).first.description
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # GET /pages/1
   # GET /pages/1.json
   def show

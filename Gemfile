@@ -39,6 +39,8 @@ group :production do
   gem 'mysql2'
 end
 
+gem "dbpedia", "~> 0.0.1"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

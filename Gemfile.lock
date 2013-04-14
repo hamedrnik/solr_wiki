@@ -45,6 +45,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    dbpedia (0.0.1)
+      nokogiri (>= 1.5.5)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -143,6 +145,7 @@ DEPENDENCIES
   capistrano
   capistrano-maintenance
   coffee-rails (~> 3.2.1)
+  dbpedia (~> 0.0.1)
   execjs
   jquery-rails
   mysql2

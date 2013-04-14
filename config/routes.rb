@@ -3,7 +3,9 @@ SolrWiki::Application.routes.draw do
 
   get "types/index"
 
-  resources :pages
+  resources :pages do
+    get 'search', on: :collection
+  end
   resources :types
 
   # The priority is based upon order of creation:
