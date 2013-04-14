@@ -2,20 +2,24 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    search = Page.search do
-      fulltext params[:term_search] do
-        highlight :title
+    if params[:term_search]
+      search = Page.search do
+        fulltext params[:term_search] do
+          highlight :title
+        end
+        with :type_ids, params[:type_id]
+        order_by :popularity, :desc
       end
-      with :type_ids, params[:type_id]
-      order_by :popularity, :desc
-    end
 
-    @pages = []
-    search.each_hit_with_result do |hit, result|
-      hit.highlights(:title).each do |highlight|
-        result.title = highlight.format{ |word| "<b>#{word}</b>"}
+      @pages = []
+      search.each_hit_with_result do |hit, result|
+        hit.highlights(:title).each do |highlight|
+          result.title = highlight.format{ |word| "<b>#{word}</b>"}
+        end
+        @pages << result
       end
-      @pages << result
+    else
+      @pages = Page.order("created_at desc")
     end
 
     respond_to do |format|
