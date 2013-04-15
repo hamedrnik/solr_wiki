@@ -41,6 +41,7 @@ end
 
 gem "dbpedia", "~> 0.0.1"
 gem "kaminari", "~> 0.14.1"
+gem 'progress_bar'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
