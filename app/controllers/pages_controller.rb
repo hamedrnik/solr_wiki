@@ -9,6 +9,7 @@ class PagesController < ApplicationController
         end
         with :type_ids, params[:type_id]
         order_by :popularity, :desc
+        paginate :page => params[:page], :per_page => 10
       end
 
       @pages = []
@@ -19,7 +20,7 @@ class PagesController < ApplicationController
         @pages << result
       end
     else
-      @pages = Page.order("created_at desc")
+      @pages = Page.order("created_at desc").page(params[:page]).per(30)
     end
 
     respond_to do |format|
