@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130412144517) do
+ActiveRecord::Schema.define(:version => 20130415165455) do
 
   create_table "pages", :force => true do |t|
     t.string   "title"
@@ -21,12 +21,17 @@ ActiveRecord::Schema.define(:version => 20130412144517) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "pages", ["popularity"], :name => "index_pages_on_popularity"
+
   create_table "pages_types", :force => true do |t|
     t.integer  "type_id"
     t.integer  "page_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "pages_types", ["page_id"], :name => "index_pages_types_on_page_id"
+  add_index "pages_types", ["type_id"], :name => "index_pages_types_on_type_id"
 
   create_table "types", :force => true do |t|
     t.string   "name"
