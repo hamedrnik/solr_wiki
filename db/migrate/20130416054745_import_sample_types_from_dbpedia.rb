@@ -10,7 +10,7 @@ class ImportSampleTypesFromDbpedia < ActiveRecord::Migration
       @pages.each_with_index do |p, i|
         page_id = p.first
 #        page_title = p[1].gsub(/_/, ' ')
-        page_title = page_title.gsub(/\\/, '\&\&').gsub(/'/, "''")
+        page_title = p[1].gsub(/\\/, '\&\&').gsub(/'/, "''")
 
         results = Dbpedia.search(p[1])
         unless results.empty?
