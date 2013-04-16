@@ -21,6 +21,8 @@ class ImportSampleTypesFromDbpedia < ActiveRecord::Migration
             puts "record #{@offset + 1 + i} is saved with title of #{p.title}"
           end
         else
+          p.title = p.title.gsub(/([\_])/, ' ')
+          p.save!
           puts "#{p.title} is not found in Dbpedia"
         end
       end
