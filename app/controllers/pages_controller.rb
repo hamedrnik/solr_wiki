@@ -7,7 +7,9 @@ class PagesController < ApplicationController
         fulltext params[:term_search] do
           highlight :title
         end
-        with :type_ids, params[:type_id]
+        unless params[:type_id].empty?
+          with :type_ids, params[:type_id]
+        end
         order_by :popularity, :desc
         paginate :page => params[:page], :per_page => 10
       end

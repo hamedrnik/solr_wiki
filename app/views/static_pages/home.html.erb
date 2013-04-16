@@ -1,6 +1,6 @@
 <%= form_tag search_pages_path, remote: true, method: :get, class: 'form-search' do %>
   <%= text_field_tag :term_search, params[:term_search], class: "center", placeholder: "Enter a Topic", size: "40" %>
-  <%= select "type", "name", Type.all.collect { |t| [t.name, t.id] } %>
+  <%= select "type", "name", Type.all.collect { |t| [t.name, t.id] }, { include_blank: true } %>
   <%= hidden_field_tag "selected_type", ' ', id: "selected_type" %>
 <% end %>
 
