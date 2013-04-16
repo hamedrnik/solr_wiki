@@ -36,8 +36,9 @@ gem "capistrano-maintenance"
 group :production do
   gem 'execjs'
   gem 'therubyracer'
-  gem 'mysql2'
 end
+
+gem 'mysql2'
 
 gem "dbpedia", "~> 0.0.1"
 gem "kaminari", "~> 0.14.1"
