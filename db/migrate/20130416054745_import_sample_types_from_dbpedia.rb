@@ -2,7 +2,7 @@ class ImportSampleTypesFromDbpedia < ActiveRecord::Migration
   def up
     @offset = 0
     @limit = 100
-    @pages_count = (execute 'select count(*) from pages;').first["count(*)"]
+    @pages_count = (execute 'select count(*) from pages;').first["count(*)"].to_i
 
     while @offset <= @pages_count do
       @pages = execute "select id, title from pages order by popularity desc limit #{@limit} offset #{@offset}"
