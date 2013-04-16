@@ -20,7 +20,7 @@ class PagesController < ApplicationController
         @pages << result
       end
     else
-      @pages = Page.order("created_at desc").page(params[:page]).per(30)
+      @pages = Page.order("popularity desc").page(params[:page]).per(30)
     end
 
     respond_to do |format|
