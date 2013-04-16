@@ -8,15 +8,20 @@ class ImportSampleTypesFromDbpedia < ActiveRecord::Migration
       @pages = Page.order('popularity desc').offset(@offset).limit(@limit)
 
       @pages.each_with_index do |p, i|
-        types = Dbpedia.search(p.title).first.classes.collect(&:label)
-        if !types.empty?
-          p.types = []
-          types.each do |type|
-            p.types << Type.find_or_create_by_name!(name: type)
+        results = Dbpedia.search(p.title)
+        unless results.empty?
+          types = results.first.classes.collect(&:label)
+          if !types.empty?
+            p.types = []
+            types.each do |type|
+              p.types << Type.find_or_create_by_name!(name: type)
+            end
+            p.title = p.title.gsub(/([\_])/, ' ')
+            p.save!
+            puts "record #{@offset + 1 + i} is saved with title of #{p.title}"
           end
-          p.title = p.title.gsub(/([\_])/, ' ')
-          p.save!
-          puts "record #{@offset + 1 + i} is saved with title of #{p.title}"
+        else
+          puts "#{p.title} is not found in Dbpedia"
         end
       end
 
