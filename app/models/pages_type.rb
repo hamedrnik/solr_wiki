@@ -3,4 +3,6 @@ class PagesType < ActiveRecord::Base
 
   belongs_to :page
   belongs_to :type
+
+  validates_uniqueness_of :page_id, scope: :type_id
 end
