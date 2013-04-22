@@ -9,7 +9,12 @@ class LoadTypesFromDbpediaDb < ActiveRecord::Migration
         article = statement.subject.to_s.scan(/http:\/\/.*\/(.*)/).first.first
         type = statement.object.to_s.scan(/http:\/\/.*\/(.*)/).first.first
         article.gsub!(/_/, ' ') if article
-        pages = Page.search { fulltext article }.results
+
+        pages = Page.search do
+          fulltext article
+          paginate :page => 1, :per_page => 1
+        end.results
+
         unless pages.empty?
           page = pages.first
           if type && !type.empty?
