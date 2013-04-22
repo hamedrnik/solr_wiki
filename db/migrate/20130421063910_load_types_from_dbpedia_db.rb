@@ -11,12 +11,17 @@ class LoadTypesFromDbpediaDb < ActiveRecord::Migration
         if article && type
           article.gsub!(/_/, ' ')
 
-          pages = Page.search do
-            fulltext article
-            paginate :page => 1, :per_page => 1
-          end.results
+          begin
+            pages = Page.search do
+              fulltext article
+              paginate :page => 1, :per_page => 1
+            end.results
+          rescue RSolr::Error::Http => e
+            puts "record #{counter} is not saved with title of #{article} and type of #{type}"
+            puts e.message
+          end
 
-          unless pages.empty?
+          if pages && !pages.empty?
             page = pages.first
             if type && !type.empty?
               page.types << Type.find_or_create_by_name(type)
