@@ -1,14 +1,14 @@
 class LoadTypesFromDbpediaDb < ActiveRecord::Migration
-  require 'rdf'
-  require 'rdf/ntriples'
-
   def up
     counter = 1
-    RDF::Reader.open(File.join(Rails.root, "db", "instance_types_en.nt")) do |reader|
-      reader.each_statement do |statement|
-        if statement && statement.subject && statement.object
-          article = statement.subject.to_s.scan(/http:\/\/.*\/(.*)/).first.first
-          type = statement.object.to_s.scan(/http:\/\/.*\/(.*)/).first.first
+    File.open(File.join(Rails.root, "db", "instance_types_en.nt")).each_line do |line|
+      matches = line.scan(/<[^>]*\/([^>]*)>/)
+
+      if matches && !matches.empty?
+        article = matches[0].first if matches[0] && matches[0].first
+        type = matches[2].first if matches[2] && matches[2].first
+
+        if article && type
           article.gsub!(/_/, ' ')
 
           pages = Page.search do
