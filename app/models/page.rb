@@ -22,9 +22,9 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :title, :uri
   validates_presence_of :title, :uri, :popularity
 
-  searchable do
-    text :title, as: "title_textp", stored: true
-    integer :popularity
-    integer :type_ids, multiple: true
-  end
+#  searchable do
+#    text :title, as: "title_textp", stored: true
+#    integer :popularity
+#    integer :type_ids, multiple: true
+#  end
 end

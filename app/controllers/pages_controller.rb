@@ -2,28 +2,49 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    if params[:term_search]
-      search = Page.search do
-        fulltext params[:term_search] do
-          highlight :title
-        end
-        unless params[:type_id].empty?
-          with :type_ids, params[:type_id]
-        end
-        order_by :popularity, :desc
-        paginate :page => params[:page], :per_page => 10
-      end
+    solr = RSolr.connect :url => 'http://ec2-54-234-109-21.compute-1.amazonaws.com:8080/solr/solr_wiki'
+    results = solr.get 'select', params: {
+      q: search_query,
+      start: params[:page],
+      rows: 10,
+      hl: true,
+      "hl.fl" => 'title',
+      sort: 'popularity desc',
+      fl: 'title',
+      "hl.simple.pre" => "<b>",
+      "hl.simple.post" => "</b>"
+    }
 
-      @pages = []
-      search.each_hit_with_result do |hit, result|
-        hit.highlights(:title).each do |highlight|
-          result.title = highlight.format{ |word| "<b>#{word}</b>"}
-        end
-        @pages << result
-      end
-    else
-      @pages = Page.order("popularity desc").page(params[:page]).per(30)
+    @pages = []
+    results["highlighting"].each do |key, value|
+      page = {}
+      page["title"] = key
+      page["highlight"] = value["title"].first
+      @pages << page
     end
+
+#    if params[:term_search]
+#      search = Page.search do
+#        fulltext params[:term_search] do
+#          highlight :title
+#        end
+#        unless params[:type_id].empty?
+#          with :type_ids, params[:type_id]
+#        end
+#        order_by :popularity, :desc
+#        paginate :page => params[:page], :per_page => 10
+#      end
+
+#      @pages = []
+#      search.each_hit_with_result do |hit, result|
+#        hit.highlights(:title).each do |highlight|
+#          result.title = highlight.format{ |word| "<b>#{word}</b>"}
+#        end
+#        @pages << result
+#      end
+#    else
+#      @pages = Page.order("popularity desc").page(params[:page]).per(30)
+#    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,8 +53,7 @@ class PagesController < ApplicationController
   end
 
   def search
-    @page = Page.find(params[:term_search])
-    @desc = Dbpedia.search(@page.title).first.description
+    @desc = Dbpedia.search(params[:term_search]).first.description
 
     respond_to do |format|
       format.js
@@ -108,6 +128,16 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to pages_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def search_query
+    if params[:type_id] and !params[:type_id].empty?
+      "title:\"#{params[:term_search]}\" AND types:\"#{params[:type_id]}\""
+    else
+      "title:\"#{params[:term_search]}\""
     end
   end
 end

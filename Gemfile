@@ -23,9 +23,7 @@ end
 gem 'jquery-rails'
 
 gem "select2-rails"
-
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+gem 'rsolr'
 
 # Deploy with Capistrano
 gem 'capistrano'

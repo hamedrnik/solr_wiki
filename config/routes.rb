@@ -1,12 +1,10 @@
 SolrWiki::Application.routes.draw do
   root to: "static_pages#home"
 
-  get "types/index"
-
-  resources :pages do
+  resources :pages, only: :index do
     get 'search', on: :collection
   end
-  resources :types
+#  resources :types
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

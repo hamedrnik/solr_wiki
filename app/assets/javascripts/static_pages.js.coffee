@@ -9,21 +9,24 @@ jQuery ->
       url: "/pages.json"
       dataType: 'json'
       data: (term, page)->
-          term_search: term
-          type_id: $("#selected_type").val()
-          page: 1
+        term_search: term
+        type_id: $("#selected_type").val()
+        page: page || 1
 
       results: (terms, page)->
         results: terms
 
-    formatResult: (terms) ->
-      terms.title
+    formatResult: (term) ->
+      term.highlight
 
     escapeMarkup: (text) ->
       text
 
-    formatSelection: (terms) ->
-      terms.title
+    formatSelection: (term) ->
+      term.title
+
+    id: (object)->
+      object.title
   })
 
   $("#term_search").on("change", (e)->
