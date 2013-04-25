@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     solr = RSolr.connect :url => 'http://ec2-54-234-109-21.compute-1.amazonaws.com:8080/solr/collection1'
     results = solr.get 'select', params: {
       q: search_query,
-      start: params[:page],
+      start: params[:page].to_i - 1,
       rows: 10,
       hl: true,
       "hl.fl" => 'title',
