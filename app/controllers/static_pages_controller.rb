@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    solr = RSolr.connect :url => 'http://ec2-54-234-109-21.compute-1.amazonaws.com:8080/solr/solr_wiki'
+    solr = RSolr.connect :url => 'http://ec2-54-234-109-21.compute-1.amazonaws.com:8080/solr/collection1'
     results = solr.get 'select', params: {
       facet: true,
       "facet.field" => "types"

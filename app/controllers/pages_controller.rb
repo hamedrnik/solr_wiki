@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    solr = RSolr.connect :url => 'http://ec2-54-234-109-21.compute-1.amazonaws.com:8080/solr/solr_wiki'
+    solr = RSolr.connect :url => 'http://ec2-54-234-109-21.compute-1.amazonaws.com:8080/solr/collection1'
     results = solr.get 'select', params: {
       q: search_query,
       start: params[:page],
