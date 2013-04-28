@@ -18,3 +18,4 @@
 /solr/pids
 config/database.yml
 config/sunspot.yml
+db/instance_types_en.nt
