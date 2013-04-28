@@ -24,7 +24,7 @@ class LoadTypesFromDbpediaDb < ActiveRecord::Migration
 
             if pages && !pages.empty?
               page = pages.first
-              if type && !type.empty?
+              if page.title == article && type && !type.empty?
                 begin
                   page.types << Type.find_or_create_by_name(type)
                   puts "record #{counter} is saved with title of #{page.title} and type of #{type}"
