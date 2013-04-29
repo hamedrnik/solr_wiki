@@ -27,6 +27,8 @@ gem "select2-rails"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
+gem 'rdf'
+
 # Deploy with Capistrano
 gem 'capistrano'
 
