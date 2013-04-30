@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   def index
     if params[:term_search]
       search = Page.search do
-        fulltext params[:term_search] do
+        fulltext "\"#{params[:term_search]}\"" do
           highlight :title
         end
         unless params[:type_id].empty?

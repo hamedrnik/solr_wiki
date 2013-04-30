@@ -20,7 +20,7 @@ class LoadTypesFromDbpediaDb < ActiveRecord::Migration
 
               begin
                 pages = Page.search do
-                  fulltext article
+                  fulltext "\"#{article}\""
                   paginate :page => 1, :per_page => 1
                 end.results
               rescue RSolr::Error::Http => e
